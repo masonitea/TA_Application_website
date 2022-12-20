@@ -1,0 +1,135 @@
+﻿@model TAApplication.Models.Course
+
+@{
+    ViewData["Title"] = "Delete";
+}
+
+<!--
+  Author:    Mason Austin
+  Partner:   None
+  Date:      10 / 19 / 2021
+  Course: CS 4540, University of Utah, School of Computing
+  Copyright: CS 4540 and Mason Austin - This work may not be copied for use in Academic Coursework.
+
+  I, Mason Austin, certify that I wrote this code from scratch and did not copy it in part or whole from
+  another source.  Any references used in the completion of the assignment are cited in my README file.
+
+  File Contents:
+    View for deleting a course in the database. Intended only for admins.
+-->
+
+<div class="row" id="courseDeleteHeader">
+    <h1 class="pageTitle col-12">Delete @Model.Department @Model.Number - @Model.Name?<img class="ULogo" src="~/images/Ulogo.png" /> </h1>
+</div>
+
+<div id="courseDeleteBody">
+    <div class="col" id="courseOverviewCard">
+        <div class="card mt-3">
+            <div class="card-header">
+                Course Overview
+            </div>
+            <div class="card-body">
+                <div class="row">
+                    <div class="col-md-2 font-weight-bold">
+                        @Html.DisplayNameFor(model => model.ProfessorName)
+                    </div>
+                    <div class="col">
+                        <div>
+                            <span>@Html.DisplayFor(model => model.ProfessorName)</span> <br>
+                        </div>
+                    </div>
+                </div>
+                @if (User.IsInRole("Administrator"))
+                {
+                    <div class="row">
+                        <div class="col-md-2 font-weight-bold">
+                            @Html.DisplayNameFor(model => model.ProfessorUnid)
+                        </div>
+                        <div class="col">
+                            <div>
+                                <span>@Html.DisplayFor(model => model.ProfessorUnid)</span> <br>
+                            </div>
+                        </div>
+                    </div>
+                }
+                <div class="row">
+                    <div class="col-md-2 font-weight-bold">
+                        @Html.DisplayNameFor(model => model.Description)
+                    </div>
+                    <div class="col">
+                        <div>
+                            <span>@Html.DisplayFor(model => model.Description)</span> <br>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="col" id="courseDetailsCard">
+        <div class="card mt-3">
+            <div class="card-header">
+                Course Details
+            </div>
+            <div class="card-body">
+                <div class="row">
+                    <div class="col-md-2 font-weight-bold">
+                        Semester
+                    </div>
+                    <span class="col">@Html.DisplayFor(model => model.SemesterOffered) @Html.DisplayFor(model => model.YearOffered)</span>
+                </div>
+                <div class="row">
+                    <div class="col-md-2 font-weight-bold">
+                        @Html.DisplayNameFor(model => model.Section)
+                    </div>
+                    <div class="col">
+                        <div>
+                            <span>@Html.DisplayFor(model => model.Section)</span> <br>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-2 font-weight-bold">
+                        Days / Time / Schedule
+                    </div>
+                    <div class="col">
+                        <div>
+                            <span> @Html.DisplayFor(model => model.OfferedDays) / @Html.DisplayFor(model => model.OfferedTimes) / @Html.DisplayFor(model => model.Location) </span> <br>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-2 font-weight-bold">
+                        @Html.DisplayNameFor(model => model.CreditHours)
+                    </div>
+                    <div class="col">
+                        <div>
+                            <span>@Html.DisplayFor(model => model.CreditHours)</span> <br>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-2 font-weight-bold">
+                        @Html.DisplayNameFor(model => model.Enrollment)
+                    </div>
+                    <div class="col">
+                        <div>
+                            <span>@Html.DisplayFor(model => model.Enrollment)</span> <br>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <hr />
+
+    <h3 id="deleteWarningHeader">WARNING: Deleting a course is permanent!</h3>
+
+    <form asp-action="Delete" id="courseDeleteLinks">
+        <input type="hidden" asp-for="CourseID" />
+        <input type="submit" value="Delete Forever" class="btn btn-danger" /> &nbsp &nbsp
+        <a class="btn btn-primary" id="courseDetailsButton" href="~/Courses/Details/@Model.CourseID" role="button">Return to Course</a> &nbsp &nbsp
+        <a class="btn btn-primary" id="CourseListButton" href="~/Courses/List" role="button">Back to List</a>
+    </form>
+</div>

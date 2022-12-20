@@ -1,0 +1,139 @@
+﻿@model TAApplication.Models.Application
+
+@{
+    ViewData["Title"] = "Delete";
+}
+
+<!--
+  Author:    Mason Austin
+  Partner:   None
+  Date:      9/19/2021
+  Course:    CS 4540, University of Utah, School of Computing
+  Copyright: CS 4540 and Mason Austin - This work may not be copied for use in Academic Coursework.
+
+  I, Mason Austin, certify that I wrote this code from scratch and did not copy it in part or whole from
+  another source.  Any references used in the completion of the assignment are cited in my README file.
+
+  File Contents:
+    This is the page that is used for deleting a user. It displays all info similar to the details page as well as options to delete or navigate to other pages.
+-->
+
+@if (Model.Owner == User.Identity.Name || User.IsInRole("Administrator"))
+{
+    <div class="row" id="applicantDeleteHeader">
+        <h1 class="pageTitle col-12">Delete @Html.DisplayFor(model => model.FirstName)'s Application?<img class="ULogo" src="~/images/Ulogo.png" /> </h1>
+    </div>
+
+    <div id="applicantDeleteInformation">
+        <div class="row" id="applicantData">
+            <div class="col-sm-6 col-md-3" id="applicantIdentificationColumn">
+                <figure id="applicants_photo">
+                    <img class="applicantPhotoStyle" src="~/images/default.png" alt="Default Profile Picture" />
+                </figure>
+
+                <dl class="dl-horizontal" id="applicantIdentification">
+                    <dt>First Name</dt>
+                    <dd>@Html.DisplayFor(model => model.FirstName)</dd>
+                    <dt>Last Name</dt>
+                    <dd>@Html.DisplayFor(model => model.LastName)</dd>
+                    <dt>uID</dt>
+                    <dd>@Html.DisplayFor(model => model.uID)</dd>
+                    <dt>Phone Number</dt>
+                    <dd>@Html.DisplayFor(model => model.PhoneNumber)</dd>
+                    <dt>Address</dt>
+                    <dd>@Html.DisplayFor(model => model.Address)</dd>
+                </dl>
+            </div>
+            <div class="col-sm-6 col-md-6" id="applicantTADataColumn">
+                <dl class="dl-horizontal" id="applicantTAData">
+                    <dt>
+                        Degree/Program
+                    </dt>
+                    <dd>
+                        @Html.DisplayFor(model => model.Degree) in @Html.DisplayFor(model => model.Program)
+                    </dd>
+                    <dt>
+                        GPA
+                    </dt>
+                    <dd>
+                        @Html.DisplayFor(model => model.GPA)
+                    </dd>
+                    <dt>
+                        Hours per week
+                    </dt>
+                    <dd>
+                        @Html.DisplayFor(model => model.Hours)
+                    </dd>
+                    <dt>
+                        English Fluency
+                    </dt>
+                    <dd>
+                        @Html.DisplayFor(model => model.EnglishFluency)
+                    </dd>
+                    <dt>
+                        Semesters
+                    </dt>
+                    <dd>
+                        @Html.DisplayFor(model => model.Semesters)
+                    </dd>
+                    <dt>
+                        Personal Statement
+                    </dt>
+                    <dd>
+                        @Html.DisplayFor(model => model.Statement)
+                    </dd>
+                    <dt>
+                        LinkedIn
+                    </dt>
+                    <dd>
+                        <a href="@Html.DisplayFor(model => model.LinkedIn)">@Html.DisplayFor(model => model.FirstName)'s LinkedIn</a>
+                    </dd>
+                    <dt>
+                        @Html.DisplayNameFor(model => model.Resume)
+                    </dt>
+                    <dd>
+                        @Html.DisplayFor(model => model.Resume)
+                    </dd>
+                </dl>
+            </div>
+            <div class="col-sm-6 col-md-3" id="applicantStatementColumn">
+
+                <dl class="dl-horizontal" id="applicantStatement">
+                    <dt>
+                        Creation Date
+                    </dt>
+                    <dd>
+                        @Html.DisplayFor(model => model.CreationDate)
+                    </dd>
+                    <dt>
+                        Modification Date
+                    </dt>
+                    <dd>
+                        @Html.DisplayFor(model => model.ModificationDate)
+                    </dd>
+
+                </dl>
+            </div>
+        </div>
+
+        <hr />
+
+        <h3 id="deleteWarningHeader">WARNING: Deleting an application is permanent!</h3>
+
+        <form asp-action="Delete">
+            <input type="hidden" asp-for="ApplicationID" />
+            <input type="submit" value="Delete" class="btn btn-danger" /> |
+            <a href="~/Applications/Details/@Model.ApplicationID">Return to Profile</a> |
+            <a asp-action="Home">Back to Home</a>
+        </form>
+    </div>
+}
+else
+{
+    <main role="main" class="container">
+        <div class="starter-template navpaddingS">
+            <h1>ERROR: You do not own this application!</h1>
+            <p class="lead navPaddingS">You are attempting to delete an application you don't own.<a href="~/Applications/Index"> Are you lost? </a> </p>
+        </div>
+    </main>
+}

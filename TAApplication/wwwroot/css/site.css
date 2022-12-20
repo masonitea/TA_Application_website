@@ -1,0 +1,332 @@
+﻿/* Please see documentation at https://docs.microsoft.com/aspnet/core/client-side/bundling-and-minification
+for details on configuring this project to bundle and minify static web assets. */
+
+a.navbar-brand {
+  white-space: normal;
+  text-align: center;
+  word-break: break-all;
+}
+
+/* Provide sufficient contrast against white background */
+a {
+  color: #0366d6;
+}
+
+.btn-primary {
+  color: #fff;
+  background-color: #1b6ec2;
+  border-color: #1861ac;
+}
+
+.nav-pills .nav-link.active, .nav-pills .show > .nav-link {
+  color: #fff;
+  background-color: #1b6ec2;
+  border-color: #1861ac;
+}
+
+/* Sticky footer styles
+-------------------------------------------------- */
+html {
+  font-size: 14px;
+}
+@media (min-width: 768px) {
+  html {
+    font-size: 16px;
+  }
+}
+
+.border-top {
+  border-top: 1px solid #e5e5e5;
+}
+.border-bottom {
+  border-bottom: 1px solid #e5e5e5;
+}
+
+.box-shadow {
+  box-shadow: 0 .25rem .75rem rgba(0, 0, 0, .05);
+}
+
+button.accept-policy {
+  font-size: 1rem;
+  line-height: inherit;
+}
+
+/* Sticky footer styles
+-------------------------------------------------- */
+html {
+  position: relative;
+  min-height: 100%;
+}
+
+body {
+  /* Margin bottom by footer height */
+  margin-bottom: 60px;
+}
+.footer {
+  position: absolute;
+  bottom: 0;
+  width: 100%;
+  white-space: nowrap;
+  line-height: 60px; /* Vertically center the text there */
+}
+
+/*
+    Start of my CSS code
+*/
+
+/* Table that displays information on TAs and their statuses for a given course */
+.courseTable {
+    margin-left: auto;
+    margin-right: auto;
+    width: 90%;
+    border: 2px solid rgb(127, 127, 127);
+    text-align: center;
+    border-collapse: separate;
+}
+
+/* Divides two listed courses with a gray line */
+.courseDivider {
+    border-bottom: 2px solid rgb(200, 200, 200);
+}
+
+
+/* Text for a regular page */
+.pageText {
+    text-align: justify;
+    font-family: Arial;
+    color: black;
+    font-size: large;
+    padding-top:65px;
+}
+
+/* Title for a regular page */
+.pageTitle {
+    font-family: 'Times New Roman';
+    text-align: left;
+    padding-bottom:3px;
+    border-bottom: 2px solid red;
+}
+
+/* Entry in the table that displays all applicants */
+.applicantTableEntry {
+    font-size: 20px;
+}
+
+/* Title (e.g. CS 2100) for a course within the course list */
+.courseTitle {
+    font-family: 'Times New Roman';
+    text-align: center;
+}
+
+/* Status column of a courseTable  */
+.courseStatusColumn {
+    width: 30%;
+    border: 2px solid rgb(127, 127, 127);
+}
+
+/* Applicant column of a courseTable */
+.courseApplicantColumn {
+    width: auto;
+    border: 2px solid rgb(127, 127, 127);
+}
+
+/* Used to highlight important text */
+.red{
+    color: darkred;
+    background-color: white;
+}
+
+
+/* Every other row is red in a table */
+tr:nth-child(even) {
+    background-color: rgb(255,226,224);
+}
+
+/* These help visual clarification between the two */
+.courseAssignedTAs {
+    background-color: white;
+}
+
+.courseUnderConsiderationTAs {
+    background-color: rgb(255,226,224);
+}
+
+/* Tooltip container */
+.tooltipMason { /* applies to “class” tooltipJim */
+    position: relative; /* relative to its normal position */
+    display: inline-block; /* Allows you to adjust width/height */
+}
+
+.tooltipMason .tooltiptextMason {
+    visibility: hidden; /* normally not shown */
+    background-color: black;
+    color: #fff; /* RGB - white */
+    text-align: center;
+    padding: 6px 0;
+    border-radius: 10px; /* Fancy */
+    /* Position the tooltip text - see examples below! */
+    position: absolute; /* on top of other stuff */
+    z-index: 1; /* above other stuff */
+}
+
+
+.tooltipMason:hover .tooltiptextMason { /* hover <- state */
+        visibility: visible;
+}
+
+/* Style of the static U logo */
+.ULogo {
+    float:right;
+    width:45px;
+    height:auto;
+}
+
+/* Styling for the top line of the navigation bar */
+.line1style{
+    font:arial,sans-serif;
+    font-size:12px;
+    color: lightgray;
+}
+
+/* Styling for the bottom line of the navigation bar */
+.line2style {
+    font: arial,sans-serif;
+    font-size: 14px;
+}
+
+/* Styling to make a static button red. Mimics bootstrap naming style */
+.btn-red{
+    background-color:indianred;
+}
+
+/* Styling to add a background image to the jumbotron on the Home page*/
+#jumbotronHome {
+    background-image: url(../images/jumbotron_bg.jpg);
+    background-size: cover;
+    background-repeat:no-repeat;
+    background-position:center;
+    height:100%;
+}
+
+/* Styling to add a background image to the jumbotron on the Application Home page */
+#jumbotronApplication {
+    background-image: url(../images/jumbotron_bg2.jpg);
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-position: center;
+    height:80%;
+}
+
+/* Resize images automagically */
+img {
+    display: block;
+    max-width: 100%;
+    height: auto;
+}
+
+/* Navbar overlaps without these */
+.navPaddingS {
+    margin-top:100px;
+}
+.navPaddingxS {
+    margin-top: 30px;
+}
+
+/* Styling for radio buttons on job request form page*/
+#radiorow{
+    padding-top:8px;
+    padding-left:8px;
+    margin-bottom:10px;
+}
+
+/* Styling for applicant's photo on their application view page */
+.applicantPhotoStyle {
+    width: 100%;
+    max-height:500px;
+}
+
+/* Styling for the edit button on the application view page */
+#applicationEditButton{
+    width:100%;
+    margin-bottom:10px;
+}
+
+/* Styling for the delete button on the Applications Delete page */
+#applicationDeleteButton {
+    width: 100%;
+    margin-bottom: 10px;
+}
+
+/* Styling for the text that warns about deletion on the Applications Delete page*/
+#deleteWarningHeader {
+    margin-bottom:10px;
+}
+
+/* Styling for the statistics on the Applications Index page */
+#applicantStatistics{
+    font-size:20px;
+}
+
+/* Styling for the text that redirects to the Create page on the List page of Applications*/
+#listCreate{
+    margin-top:-15px;
+}
+
+/* Styling for the logout button when logged into the website */
+.logoutButton{
+    padding-top:15px;
+}
+
+/* Font sizing for the text telling professors are lost on the application index */
+#lostProfessor{
+    font-size:40px;
+}
+
+/* Styling for the permissions table in Admin/Index */
+#permissionTable {
+    width:100%;
+}
+
+/* Styling for the button that directs to creating a new course */
+#CourseCreateButton {
+    padding-top:10px;
+}
+
+/* Styling for course columns on the course details page. Taken from https://registrar.utah.edu/Catalog-schedules.php */
+.col {
+    flex-basis: 0;
+    flex-grow: 1;
+    max-width: 100%;
+}
+
+/* Styling for the redirect links on the course details view */
+#courseDetailsLinks{
+    padding-left:3%;
+}
+
+.loader {
+    max-width:50px;
+}
+
+.jumbospinner{
+    max-width:5000px;
+    width:100%;
+}
+
+#scheduleButton {
+    padding-left:15px;
+    cursor: pointer;
+}
+
+#scheduleSpinner{
+    float:left;
+    max-width:80px;
+}
+
+#savedText{
+    font-size:30px;
+}
+
+.rowPadding{
+    padding-top:10px;
+}

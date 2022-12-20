@@ -1,0 +1,64 @@
+﻿@using Microsoft.AspNetCore.Identity
+@using TAApplication.Areas.Identity.Data
+
+<!--
+  Author:    Mason Austin
+  Partner:   None
+  Date:      11/15/2021
+  Course:    CS 4540, University of Utah, School of Computing
+  Copyright: CS 4540 and Mason Austin - This work may not be copied for use in Academic Coursework.
+
+  I, Mason Austin, certify that I wrote this code from scratch and did not copy it in part or whole from
+  another source.  Any references used in the completion of the assignment are cited in my README file.
+
+  File Contents:
+    This view provides the user a PIXI app for setting their schedule which will save their schedule in the backend.
+-->
+
+@inject UserManager<TAUser> UserManager
+@{ var user = await UserManager.GetUserAsync(User); }
+
+<div class="row" id="availabilityIndexHeader">
+    <h1 class="pageTitle col-md-12">Availability for @user.FirstName @user.LastName <img class="ULogo" src="~/images/Ulogo.png" /> </h1>
+</div>
+
+<div class="row" id="availabilityBody">
+    <p class="col-12">
+        Please indicate all the times that you <b>will be</b> available during the week.
+        This information is used by the hiring committee and professors to determine class coverage, lab coverage, office hour coverage, etc.
+        (Note: Any work necessary on the weekends will be up to you and your professor to negotiate.).
+    </p>
+
+    <p class="col-12">
+        If your schedule changes, please come back and update this record.
+    </p>
+
+    <div class="col-12" id="canvas_div"></div>
+    <p id="savedText" class="col-12"></p>
+
+    <p id="scheduleButton" class="text-white col-4">
+        <img src="~/images/spinner.gif" class="col-4" id="scheduleSpinner" alt="loading..." style="display:none" />
+        <a class="btn btn-primary btn-lg" id="saveScheduleButton" onclick="save_schedule()" role="button">Save Schedule</a>
+    </p>
+
+
+</div>
+
+<input type="hidden" id="PassingToJavaScript" value=@user.Id>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/pixi.js/6.2.0/browser/pixi.js"></script>
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+<script type="text/javascript" src="~/js/availabilitySetup.js"></script>
+<script type="text/javascript" src="~/js/availabilityDivider.js"></script>
+<script type="text/javascript" src="~/js/availabilitySlot.js"></script>
+<script type="text/javascript" src="~/js/availabilityMain.js"></script>
+<script type="text/javascript">
+    var tracker;
+
+    $(function () {
+        tracker = new AvailabilityTracker();
+
+        tracker.main();
+        tracker.setupOverlay();
+    });
+</script>
+<script type="text/javascript" src="~/js/availabilitySave.js"></script>

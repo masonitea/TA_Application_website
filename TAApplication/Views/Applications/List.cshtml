@@ -1,0 +1,92 @@
+﻿@model IEnumerable<TAApplication.Models.Application>
+
+@{
+    ViewData["Title"] = "List";
+}
+
+<!--
+  Author:    Mason Austin
+  Partner:   None
+  Date:      10/02/2021
+  Course:    CS 4540, University of Utah, School of Computing
+  Copyright: CS 4540 and Mason Austin - This work may not be copied for use in Academic Coursework.
+
+  I, Mason Austin, certify that I wrote this code from scratch and did not copy it in part or whole from
+  another source.  Any references used in the completion of the assignment are cited in my README file.
+
+  File Contents:
+    This is the page that displays all applicants in a table and is used to explore the database of students
+    Uses DataTables to improve the view.
+-->
+
+<div class="container">
+    <h1 class="pageTitle" id="applicantListHeader">Applicants<img class="ULogo" src="~/images/Ulogo.png" /> <br /></h1>
+
+    <table class="table table-striped table-bordered" id="applicantsTable">
+        <thead>
+            <tr class="applicantTableEntry">
+                <th>
+                    <div class="tooltipMason">
+                        Name
+                        <span class="tooltiptextMason">Sort the applicants by Name</span>
+                    </div>
+                </th>
+                <th>
+                    <div class="tooltipMason">
+                        Degree
+                        <span class="tooltiptextMason">Sort the applicants by Degree</span>
+                    </div>
+                </th>
+                <th>
+                    <div class="tooltipMason">
+                        Program
+                        <span class="tooltiptextMason">Sort the applicants by Program</span>
+                    </div>
+                </th>
+                <th>
+                    <div class="tooltipMason">
+                        GPA
+                        <span class="tooltiptextMason">Sort the applicants by GPA</span>
+                    </div>
+                </th>
+                <th>
+                    <div class="tooltipMason">
+                        Hours
+                        <span class="tooltiptextMason">Sort the applicants by Hours</span>
+                    </div>
+                </th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var item in Model)
+            {
+                <tr class="applicantTableEntry">
+                    <td>
+                        <a asp-action="Details" asp-route-id="@item.ApplicationID">@Html.DisplayFor(modelItem => item.FirstName) @Html.DisplayFor(modelItem => item.LastName)</a>
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Degree)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Program)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.GPA)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Hours)
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+</div>
+
+<link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.11.3/css/jquery.dataTables.min.css">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+<script src="https://cdn.datatables.net/1.11.3/js/jquery.dataTables.min.js"></script>
+<script>
+ $(function () {
+        $.noConflict();
+     $('#applicantsTable').DataTable();
+    });</script>

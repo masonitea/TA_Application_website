@@ -1,0 +1,105 @@
+﻿@model IEnumerable<TAApplication.Models.Course>
+
+@{
+    ViewData["Title"] = "List";
+}
+
+<!--
+  Author:    Mason Austin
+  Partner:   None
+  Date:      10 / 19 / 2021
+  Course: CS 4540, University of Utah, School of Computing
+  Copyright: CS 4540 and Mason Austin - This work may not be copied for use in Academic Coursework.
+
+  I, Mason Austin, certify that I wrote this code from scratch and did not copy it in part or whole from
+  another source.  Any references used in the completion of the assignment are cited in my README file.
+
+  File Contents:
+    View for browsing all courses in the database.
+-->
+
+<h1 class="pageTitle" id="courseListHeader">Course List<img class="ULogo" src="~/images/Ulogo.png" /></h1>
+
+<img src="~/images/spinner.gif" class="jumbospinner" id="spinner" alt="loading..."
+     style="display:none" />
+
+<div class="container" id="courseListBody">
+    <table class="table" id="coursesTable">
+        <thead>
+            <tr>
+                <th>
+                    Class
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.Section)
+                </th>
+                <th>
+                    Offered
+                </th>
+                <th>
+                    Size
+                </th>
+                <th>
+                    Professor
+                </th>
+                @if (User.IsInRole("Administrator"))
+                {
+                    <th>
+                        @Html.DisplayNameFor(model => model.Note)
+                    </th>
+                }
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var item in Model)
+            {
+                <tr>
+                    <td>
+                        <a asp-action="Details" asp-route-id="@item.CourseID">@Html.DisplayFor(modelItem => item.Department) @Html.DisplayFor(modelItem => item.Number)</a>
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Section)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.YearOffered) @Html.DisplayFor(modelItem => item.SemesterOffered)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Enrollment)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.ProfessorName)
+                    </td>
+                    @if (User.IsInRole("Administrator"))
+                    {
+                        <td>
+
+                            <form>
+                                <img src="~/images/spinner.gif" class="loader" id="spinner_@item.CourseID" alt="loading..."
+                                     style="display:none" /> Note: <input type="text" id="Note_@item.CourseID" value="@Html.DisplayFor(modelItem => item.Note)" />
+                                <input type="button" value="Save" onclick="save_note()" data-id="@item.CourseID" data-noteId="Note_@item.CourseID" />
+                            </form>
+
+                        </td>
+                    }
+                </tr>
+            }
+        </tbody>
+    </table>
+
+
+    @if (User.IsInRole("Administrator"))
+    {
+        <a asp-action="Create" class="btn btn-primary btn-red" id="courseCreateButton" role="button">Create New Course</a>
+    }
+</div>
+
+<script src="~/js/ajax.js"></script>
+<script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+<link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.11.3/css/jquery.dataTables.min.css">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+<script src="https://cdn.datatables.net/1.11.3/js/jquery.dataTables.min.js"></script>
+<script>
+    $(function () {
+        $.noConflict();
+        $('#coursesTable').DataTable();
+    });</script>

@@ -1,0 +1,142 @@
+﻿@model TAApplication.Models.Application
+
+@{
+    ViewData["Title"] = "Details";
+}
+
+<!--
+  Author:    Mason Austin
+  Partner:   None
+  Date:      10/02/2021
+  Course:    CS 4540, University of Utah, School of Computing
+  Copyright: CS 4540 and Mason Austin - This work may not be copied for use in Academic Coursework.
+
+  I, Mason Austin, certify that I wrote this code from scratch and did not copy it in part or whole from
+  another source.  Any references used in the completion of the assignment are cited in my README file.
+
+  File Contents:
+    This page is used for viewing all of the information specific to one applicant.
+    Links for returning depend on the user's role.
+-->
+
+<div class="container">
+
+    <div class="row" id="applicantDetailsHeader">
+        <h1 class="pageTitle col-12">@Html.DisplayFor(model => model.FirstName)'s Application<img class="ULogo" src="~/images/Ulogo.png" /> </h1>
+    </div>
+
+    <div class="row" id="applicantData">
+        <div class="col-sm-6 col-md-3" id="applicantIdentificationColumn">
+            <figure id="applicants_photo">
+                <img class="applicantPhotoStyle" src="~/images/default.png" alt="Default Profile Picture" />
+            </figure>
+
+            <dl class="dl-horizontal" id="applicantIdentification">
+                <dt>First Name</dt>
+                <dd>@Html.DisplayFor(model => model.FirstName)</dd>
+                <dt>Last Name</dt>
+                <dd>@Html.DisplayFor(model => model.LastName)</dd>
+                <dt>uID</dt>
+                <dd>@Html.DisplayFor(model => model.uID)</dd>
+                <dt>Email</dt>
+                <dd>@Html.DisplayFor(model => model.Owner)</dd>
+                <dt>Phone Number</dt>
+                <dd>@Html.DisplayFor(model => model.PhoneNumber)</dd>
+                <dt>Address</dt>
+                <dd>@Html.DisplayFor(model => model.Address)</dd>
+            </dl>
+        </div>
+        <div class="col-sm-6 col-md-6" id="applicantTADataColumn">
+            <dl class="dl-horizontal" id="applicantTAData">
+                <dt>
+                    Degree/Program
+                </dt>
+                <dd>
+                    @Html.DisplayFor(model => model.Degree) in @Html.DisplayFor(model => model.Program)
+                </dd>
+                <dt>
+                    GPA
+                </dt>
+                <dd>
+                    @Html.DisplayFor(model => model.GPA)
+                </dd>
+                <dt>
+                    Hours per week
+                </dt>
+                <dd>
+                    @Html.DisplayFor(model => model.Hours)
+                </dd>
+                <dt>
+                    English Fluency
+                </dt>
+                <dd>
+                    @Html.DisplayFor(model => model.EnglishFluency)
+                </dd>
+                <dt>
+                    Semesters
+                </dt>
+                <dd>
+                    @Html.DisplayFor(model => model.Semesters)
+                </dd>
+                <dt>
+                    Personal Statement
+                </dt>
+                <dd>
+                    @Html.DisplayFor(model => model.Statement)
+                </dd>
+                <dt>
+                    LinkedIn
+                </dt>
+                <dd>
+                    <a href="@Html.DisplayFor(model => model.LinkedIn)">@Html.DisplayFor(model => model.FirstName)'s LinkedIn</a>
+                </dd>
+                <dt>
+                    @Html.DisplayNameFor(model => model.Resume)
+                </dt>
+                <dd>
+                    <a href="~/images/jim.pdf">@Html.DisplayFor(model => model.FirstName)'s Resume</a>
+                </dd>
+            </dl>
+        </div>
+        <div class="col-sm-6 col-md-3" id="applicantStatementColumn">
+            <dl class="dl-horizontal" id="applicantStatement">
+                <dt>
+                    Creation Date
+                </dt>
+                <dd>
+                    @Html.DisplayFor(model => model.CreationDate)
+                </dd>
+                <dt>
+                    Modification Date
+                </dt>
+                <dd>
+                    @Html.DisplayFor(model => model.ModificationDate)
+                </dd>
+                @if (Model.Owner == User.Identity.Name || User.IsInRole("Administrator"))
+                {
+                    <dt>
+                        <a class="btn btn-primary btn-red" id="applicationEditButton" href="~/Applications/Edit/@Model.ApplicationID" role="button">Edit Application</a>
+                    </dt>
+                    <dt>
+                        <a class="btn btn-primary btn-red" id="applicationDeleteButton" href="~/Applications/Delete/@Model.ApplicationID" role="button">Delete Application</a>
+                    </dt>
+                }
+            </dl>
+
+            <hr />
+
+            @if (User.IsInRole("Administrator"))
+            {
+                <div id="editReturnLink">
+                    <a asp-action="List">Back to List</a>
+                </div>
+            }
+            @if (User.IsInRole("Applicant"))
+            {
+                <div id="editReturnLink">
+                    <a asp-action="Index">Return to Home</a>
+                </div>
+            }
+        </div>
+    </div>
+</div>

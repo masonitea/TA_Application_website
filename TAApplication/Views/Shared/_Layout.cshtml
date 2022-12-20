@@ -1,0 +1,165 @@
+﻿<!--
+  Author:    Mason Austin
+  Partner:   None
+  Date:      10/19/2021
+  Course:    CS 4540, University of Utah, School of Computing
+  Copyright: CS 4540 and Mason Austin - This work may not be copied for use in Academic Coursework.
+
+  I, Mason Austin, certify that I wrote this code from scratch and did not copy it in part or whole from
+  another source.  Any references used in the completion of the assignment are cited in my README file.
+
+  File Contents:
+    This code is on every single view. Most of it is automatically generated except for the footer and navbar.
+    Navbar will display links depending on the signed in User's role.
+-->
+@using Microsoft.AspNetCore.Identity
+@using TAApplication.Areas.Identity.Data
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>@ViewData["Title"] - TAApplication</title>
+    <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
+    @await RenderSectionAsync("Styles", required: false)
+    <link rel="stylesheet" href="~/css/site.css" />
+</head>
+<body>
+    <header>
+        <nav class="navbar navbar-expand-md navbar-dark fixed-top bg-dark">
+            <a class="navbar-brand" asp-area="" asp-controller="Home" asp-action="Index">SoC TA Applications</a>
+            <button class="navbar-toggler bg-dark" type="button" data-toggle="collapse" data-target="#navbarsExampleDefault" aria-controls="navbarsExampleDefault" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+
+            <div class="collapse navbar-collapse bg-dark navbar-xs" id="navbarsExampleDefault">
+                <ul class="navbar-nav mr-auto">
+                    @if (!User.IsInRole("Professor"))
+                    {
+                        <li class="nav-item active">
+                            <a class="nav-link" asp-area="" asp-controller="Applications" asp-action="Index">
+                                <div class="nav-line-1">
+                                    <span class="line1style">Fall 2021</span>
+                                </div>
+                                <div class="nav-line-2">
+                                    <span class="line2style">Applications</span>
+                                </div>
+                            </a>
+                        </li>
+                    }
+
+                    @if (User.IsInRole("Administrator"))
+                    {
+                        <li class="nav-item active">
+                            <a class="nav-link" asp-area="" asp-controller="Applications" asp-action="List">
+                                <div class="nav-line-1">
+                                    <span class="line1style">View All</span>
+                                </div>
+                                <div class="nav-line-2">
+                                    <span class="line2style">Applicants</span>
+                                </div>
+                            </a>
+                        </li>
+
+                        <li class="nav-item active">
+                            <a class="nav-link" href="~/Courses/List">
+                                <div class="nav-line-1">
+                                    <span class="line1style">View</span>
+                                </div>
+                                <div class="nav-line-2">
+                                    <span class="line2style">Courses</span>
+                                </div>
+                            </a>
+                        </li>
+
+                        <li class="nav-item active">
+                            <a class="nav-link" asp-area="" asp-controller="Admin" asp-action="EnrollmentTrends">
+                                <div class="nav-line-1">
+                                    <span class="line1style">View</span>
+                                </div>
+                                <div class="nav-line-2">
+                                    <span class="line2style">Enrollment</span>
+                                </div>
+                            </a>
+                        </li>
+
+                        <li class="nav-item active">
+                            <a class="nav-link" asp-area="" asp-controller="Admin" asp-action="Index">
+                                <div class="nav-line-1">
+                                    <span class="line1style">Manage User</span>
+                                </div>
+                                <div class="nav-line-2">
+                                    <span class="line2style">Permissions</span>
+                                </div>
+                            </a>
+                        </li>
+                    }
+                    else if (User.IsInRole("Applicant"))
+                    {
+
+                        <li class="nav-item active">
+                            <a class="nav-link" href="~/Applications/Create">
+                                <div class="nav-line-1">
+                                    <span class="line1style">Create An</span>
+                                </div>
+                                <div class="nav-line-2">
+                                    <span class="line2style">Application</span>
+                                </div>
+                            </a>
+                        </li>
+                    }
+                    @if (User.IsInRole("Professor"))
+                    {
+                        <li class="nav-item active">
+                            <a class="nav-link" href="~/Courses/List">
+                                <div class="nav-line-1">
+                                    <span class="line1style">View</span>
+                                </div>
+                                <div class="nav-line-2">
+                                    <span class="line2style">Courses</span>
+                                </div>
+                            </a>
+                        </li>
+                    }
+
+                    <li class="nav-item dropdown">
+                        <a class="nav-link" href="#" id="dropdown01" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                            <div class="nav-line-1">
+                                <span class="line1style"><br /></span>
+                            </div>
+                            <div class="nav-line-2">
+                                <span class="line2style">TA Menu</span>
+                                <span class="dropdown-toggle"></span>
+                            </div>
+                        </a>
+                        <div class="dropdown-menu" aria-labelledby="dropdown01">
+                            <a class="dropdown-item" asp-area="" asp-controller="Admin" asp-action="EnrollmentTrends">Enrollment Trends</a>
+                        </div>
+                    </li>
+                </ul>
+
+                <partial name="_LoginPartial" />
+            </div>
+        </nav>
+    </header>
+
+    <div class="navPaddingS"></div>
+
+    <div class="container">
+        <main role="main" class="pb-3">
+            @RenderBody()
+        </main>
+    </div>
+
+    <footer class="border-top footer text-muted">
+        <div class="container">
+            &copy; Fall 2021 - TAApplication - CS4540 and Mason Austin
+        </div>
+    </footer>
+    <script src="~/lib/jquery/dist/jquery.min.js"></script>
+    <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="~/js/site.js" asp-append-version="true"></script>
+    @await RenderSectionAsync("Scripts", required: false)
+</body>
+</html>

@@ -1,0 +1,140 @@
+﻿<!--
+  Author:    Mason Austin
+  Partner:   None
+  Date:      9/5/2021
+  Course:    CS 4540, University of Utah, School of Computing
+  Copyright: CS 4540 and Mason Austin - This work may not be copied for use in Academic Coursework.
+
+  I, Mason Austin, certify that I wrote this code from scratch and did not copy it in part or whole from
+  another source.  Any references used in the completion of the assignment are cited in my README file.
+
+  File Contents:
+    This is the job request form page where people can apply to be TAs.
+    It asks identifying information first, then information that's related to the job.
+    All this info entered here will show up on the applicant's application page once submitted
+-->
+
+<div class="container">
+    <div class="row" id="editHead">
+        <h1 class="pageTitle col-md-12">Submit an Application<img class="ULogo" src="~/images/Ulogo.png" /> <br /></h1>
+    </div>
+
+    <form id="applicationForm">
+        <div class="form-row" id="applicantFormIdentification">
+            <div class="form-group col-sm-6 col-md-4">
+                <label for="firstNameInput">First Name</label>
+                <input type="text" class="form-control" id="firstNameInput" required>
+            </div>
+            <div class="form-group col-sm-6 col-md-4">
+                <label for="lastNameInput">Last Name</label>
+                <input type="text" class="form-control" id="lastNameInput" required>
+            </div>
+            <div class="form-group col-sm-12 col-md-4">
+                <label for="uIDInput">uID</label>
+                <input type="text" class="form-control" id="uidInput" required>
+            </div>
+        </div>
+
+        <div class="form-row" id="applicantFormContact">
+            <div class="form-group col-sm-12 col-md-6">
+                <label for="emailInput">Email</label>
+                <input type="email" class="form-control" id="emailInput" aria-describedby="emailHelp" required>
+                <small id="emailHelp" class="form-text text-muted">This does not have to be your university email</small>
+            </div>
+            <div class="form-group col-sm-12 col-md-6">
+                <label for="phoneNumber">Phone Number</label>
+                <input type="text" class="form-control" id="inputPhone" aria-describedby="phoneHelp" required>
+                <small id="phoneHelp" class="form-text text-muted">Please enter in the form: XXX-XXX-XXXX</small>
+            </div>
+        </div>
+
+        <div class="form-row" id="applicantFormSchooling">
+            <div class="form-group col-6">
+                <label for="gpaInput">GPA</label>
+                <input type="text" class="form-control" id="gpaInput" required />
+            </div>
+            <div class="form-group col-6">
+                <label for="semesterInput">Semesters Completed</label>
+                <input type="text" class="form-control" id="semesterInput" required />
+            </div>
+        </div>
+
+        <div class="form-row">
+            <div class="form-group col-auto">
+                <label for="inputState">Student Status:</label>
+                <div class="tooltipMason">
+                    <select id="inputState" class="form-control">
+                        <option selected>Undergraduate</option>
+                        <option>Graduate</option>
+                    </select>
+                    <span class="tooltiptextMason">Please pick what type of degree you are currently pursuing</span>
+                </div>
+            </div>
+            <div class="col-auto" id="radiorow">
+                <div class="tooltipMason">
+                    <div class="form-check">
+                        <input class="form-check-input" type="radio" name="flexRadioDefault" id="flexRadioDefault1" checked>
+                        <label class="form-check-label" for="flexRadioDefault1">
+                            CS Major
+                        </label>
+                    </div>
+                    <span class="tooltiptextMason">CS Majors are usually considered first</span>
+                </div>
+
+                <div class="tooltipMason">
+                    <div class="form-check">
+                        <input class="form-check-input" type="radio" name="flexRadioDefault" id="flexRadioDefault2">
+                        <label class="form-check-label" for="flexRadioDefault2">
+                            CS Minor
+                        </label>
+                    </div>
+                    <span class="tooltiptextMason">CS Minors are usually normally considered after CS Majors</span>
+                </div>
+
+                <div class="tooltipMason">
+                    <div class="form-check">
+                        <input class="form-check-input" type="radio" name="flexRadioDefault" id="flexRadioDefault3">
+                        <label class="form-check-label" for="flexRadioDefault3">
+                            Other
+                        </label>
+                    </div>
+                    <span class="tooltiptextMason">Students with other majors are usually considered last</span>
+                </div>
+            </div>
+        </div>
+
+
+        <div class="form-row" id="applicantFormMisc" >
+            <div class="form-group col-12">
+                <label for="applicantCourses">Courses of Interest (<a href="~/Home/CourseList">Course List</a>)</label>
+                <input type="text" class="form-control" id="applicantCourseInput" aria-describedby="applicantCourseHelp" required>
+                <small id="applicantCourseHelp" class="form-text text-muted">Please separate each course with commas and enter no whitespaces. e.g. "CS1010,CS1410"</small>
+            </div>
+
+            <div class="form-group col-12">
+                <label for="applicantCourses">Prior TA Courses</label>
+                <input type="text" class="form-control" id="applicantCourseInput" aria-describedby="applicantCourseHelp" required>
+                <small id="applicantCourseHelp" class="form-text text-muted">Please separate each course with commas and enter no whitespaces. Put "none" if you have no experience.</small>
+            </div>
+
+            <div class="form-group col-12">
+                <label for="personalStatement">Personal Statement</label>
+                <textarea class="form-control" id="personalStatement" rows="6" required></textarea>
+            </div>
+
+            <div class="form-group col-12">
+                <label for="applicantPhotoUpload">Personal Photo</label>
+                <input type="file" class="form-control-file" id="applicantPhoto" aria-describedby="applicantPhotoHelp">
+                <small id="applicantPhotoHelp" class="form-text text-muted">NOT REQUIRED. Recommended size ratio: 1:1 (e.g. 500x500 px)</small>
+            </div>
+        </div>
+
+
+
+
+        <div class="tooltipMason">
+            <button type="submit" class="btn btn-primary" id="applicantFormSubmit">Submit</button>
+            <span class="tooltiptextMason">You can still edit your application after submitting</span>
+        </div>
+    </form>
+</div>

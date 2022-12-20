@@ -1,0 +1,139 @@
+﻿@model TAApplication.Models.Application
+
+@{
+    ViewData["Title"] = "Create";
+}
+
+<!--
+  Author:    Mason Austin
+  Partner:   None
+  Date:      9/19/2021
+  Course:    CS 4540, University of Utah, School of Computing
+  Copyright: CS 4540 and Mason Austin - This work may not be copied for use in Academic Coursework.
+
+  I, Mason Austin, certify that I wrote this code from scratch and did not copy it in part or whole from
+  another source.  Any references used in the completion of the assignment are cited in my README file.
+
+  File Contents:
+    This is the page used to create an Application. All of the validation is handled by the model's metatags.
+-->
+
+<div class="row" id="applicantCreateHeader">
+    <h1 class="pageTitle col-md-12">Submit an Application<img class="ULogo" src="~/images/Ulogo.png" /> </h1>
+</div>
+
+<form asp-action="Create">
+    <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+    <div class="row">
+        <div class="form-group col-sm-6 col-md-4">
+            <label asp-for="FirstName" class="control-label"></label>
+            <input asp-for="FirstName" class="form-control" />
+            <span asp-validation-for="FirstName" class="text-danger"></span>
+        </div>
+        <div class="form-group col-sm-6 col-md-4">
+            <label asp-for="LastName" class="control-label"></label>
+            <input asp-for="LastName" class="form-control" />
+            <span asp-validation-for="LastName" class="text-danger"></span>
+        </div>
+        <div class="form-group col-sm-12 col-md-4">
+            <label asp-for="uID" class="control-label"></label>
+            <input asp-for="uID" class="form-control" />
+            <span asp-validation-for="uID" class="text-danger"></span>
+        </div>
+    </div>
+    <div class="row">
+        <div class="form-group col-sm-12 col-md-5">
+            <label asp-for="PhoneNumber" class="control-label"></label>
+            <input asp-for="PhoneNumber" class="form-control" aria-describedby="phoneNumberHelp" />
+            <small id="applicantPhotoHelp" class="form-text text-muted">Please enter your preferred contact number</small>
+            <span asp-validation-for="PhoneNumber" class="text-danger"></span>
+        </div>
+        <div class="form-group col-sm-12 col-md-7">
+            <label asp-for="Address" class="control-label"></label>
+            <input asp-for="Address" class="form-control" aria-describedby="addressHelp" />
+            <small id="applicantPhotoHelp" class="form-text text-muted">Please in the form "street address, city, state"</small>
+            <span asp-validation-for="Address" class="text-danger"></span>
+        </div>
+    </div>
+    <div class="row">
+        <div class="form-group col-sm-6">
+            <label asp-for="Degree" class="control-label"></label>
+            <select asp-for="Degree" class="form-control" aria-describedby="degreeHelp">
+                <option>None</option>
+                <option>Bachelors</option>
+                <option>Masters</option>
+                <option>Doctorate</option>
+            </select>
+            <small id="applicantPhotoHelp" class="form-text text-muted">Please select what you are currently pursuing</small>
+            <span asp-validation-for="Degree" class="text-danger"></span>
+        </div>
+        <div class="form-group col-sm-6">
+            <label asp-for="Program" class="control-label"></label>
+            <input asp-for="Program" class="form-control" aria-describedby="programHelp" />
+            <small id="applicantPhotoHelp" class="form-text text-muted">Please enter your program (CS, CSE, CE, ect.)</small>
+            <span asp-validation-for="Program" class="text-danger"></span>
+        </div>
+    </div>
+    <div class="row">
+        <div class="form-group col-sm-4">
+            <label asp-for="GPA" class="control-label"></label>
+            <input asp-for="GPA" class="form-control" aria-describedby="gpaHelp" />
+            <small id="applicantPhotoHelp" class="form-text text-muted">Cumulative GPA</small>
+            <span asp-validation-for="GPA" class="text-danger"></span>
+        </div>
+        <div class="form-group col-sm-4">
+            <label asp-for="Semesters" class="control-label"></label>
+            <input asp-for="Semesters" class="form-control" aria-describedby="semestersHelp" />
+            <small id="semestersHelp" class="form-text text-muted">Number of completed semesters</small>
+            <span asp-validation-for="Semesters" class="text-danger"></span>
+        </div>
+        <div class="form-group col-sm-4">
+            <label asp-for="Hours" class="control-label"></label>
+            <input asp-for="Hours" class="form-control" aria-describedby="hoursHelp" />
+            <small id="hoursHelp" class="form-text text-muted">Hours available per week</small>
+            <span asp-validation-for="Hours" class="text-danger"></span>
+        </div>
+    </div>
+    <div class="row">
+        <div class="form-group col-md-12 col-xl-6">
+            <label asp-for="EnglishFluency" class="control-label"></label>
+            <select asp-for="EnglishFluency" class="form-control">
+                <option>None</option>
+                <option>Poor</option>
+                <option>Adequate</option>
+                <option>Fluent</option>
+                <option>Native</option>
+            </select>
+            <span asp-validation-for="EnglishFluency" class="text-danger"></span>
+        </div>
+        <div class="form-group col-md-12 col-xl-6">
+            <label asp-for="LinkedIn" class="control-label"></label>
+            <input asp-for="LinkedIn" class="form-control" aria-describedby="linkedinHelp" />
+            <small id="linkedinHelp" class="form-text text-muted">Please paste your LinkedIn Profile URL</small>
+            <span asp-validation-for="LinkedIn" class="text-danger"></span>
+        </div>
+    </div>
+    <div class="row">
+        <div class="form-group col-sm-12">
+            <label asp-for="Statement" class="control-label"></label>
+            <textarea asp-for="Statement" class="form-control" rows="5"></textarea>
+            <span asp-validation-for="Statement" class="text-danger"></span>
+        </div>
+    </div>
+    <div class="row">
+        <div class="form-group col-sm-12">
+            <input type="submit" value="Create" class="btn btn-primary btn-red" />
+        </div>
+    </div>
+
+
+</form>
+
+
+<div>
+    <a asp-action="Index">Back to Home</a>
+</div>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}

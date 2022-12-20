@@ -1,0 +1,139 @@
+﻿@using Microsoft.AspNetCore.Identity
+@using TAApplication.Areas.Identity.Data
+@inject UserManager<TAUser> UserManager
+@{
+    ViewData["Title"] = "Admin";
+}
+
+<!--
+  Author:    Mason Austin
+  Partner:   None
+  Date:      10/02/2021
+  Course:    CS 4540, University of Utah, School of Computing
+  Copyright: CS 4540 and Mason Austin - This work may not be copied for use in Academic Coursework.
+
+  I, Mason Austin, certify that I wrote this code from scratch and did not copy it in part or whole from
+  another source.  Any references used in the completion of the assignment are cited in my README file.
+
+  File Contents:
+    This page is used to manage the roles of users.
+    Consists of a table that contains switches representing some users roles and interacting with a switch will change their role.
+    Uses DataTables to improve the view
+-->
+
+
+<div class="container">
+
+    <img src="~/images/spinner.gif" class="jumbospinner" id="spinner" alt="loading..."
+         style="display:none" />
+
+    <div class="row" id="applicantCreateHeader">
+        <h1 class="pageTitle col-md-12">Permissions<img class="ULogo" src="~/images/Ulogo.png" /> </h1>
+    </div>
+
+    <table class="table" id="permissionTable">
+        <thead>
+            <tr class="applicantTableEntry">
+                <th>
+                    Name
+                </th>
+                <th>
+                    Administrator
+                </th>
+                <th>
+                    Professor
+                </th>
+                <th>
+                    Applicant
+                </th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (TAUser user in UserManager.Users)
+            {
+                <tr>
+                    <td>
+                        @user.UserName
+                    </td>
+                    <td>
+                        @{
+                            Task<bool> y = UserManager.IsInRoleAsync(user, "Administrator");
+                            y.Wait();
+                            if (y.Result)
+                            {
+                                <div class="custom-control custom-switch roleSwitchAdmin">
+                                    <input class="custom-control-input" type="checkbox" id="admin-remove-@user.Email" onchange="change_role()" data-id="@user.Email" data-role="Administrator" data-command="removed" checked>
+                                    <label class="custom-control-label" for="admin-remove-@user.Email"></label>
+                                </div>
+                            }
+                            else
+                            {
+                                <div class="custom-control custom-switch roleSwitchAdmin">
+                                    <input class="custom-control-input" type="checkbox" id="admin-add-@user.Email" onchange="change_role()" data-id="@user.Email" data-role="Administrator" data-command="added">
+                                    <label class="custom-control-label" for="admin-add-@user.Email"></label>
+                                </div>
+                            }
+                        }
+                    </td>
+                    <td>
+                        @{
+                            y = UserManager.IsInRoleAsync(user, "Professor");
+                            y.Wait();
+                            if (y.Result)
+                            {
+                                <div class="custom-control custom-switch roleSwitchProfessor">
+                                    <input class="custom-control-input" type="checkbox" id="professor-remove-@user.Email" onchange="change_role()" data-id="@user.Email" data-role="Professor" data-command="removed" checked>
+                                    <label class="custom-control-label" for="professor-remove-@user.Email"></label>
+                                </div>
+                            }
+                            else
+                            {
+                                <div class="custom-control custom-switch roleSwitchProfessor">
+                                    <input class="custom-control-input" type="checkbox" id="professor-add-@user.Email" onchange="change_role()" data-id="@user.Email" data-role="Professor" data-command="added">
+                                    <label class="custom-control-label" for="professor-add-@user.Email"></label>
+                                </div>
+                            }
+                        }
+                    </td>
+                    <td>
+                        @{
+                            y = UserManager.IsInRoleAsync(user, "Applicant");
+                            y.Wait();
+                            if (y.Result)
+                            {
+                                <div class="custom-control custom-switch roleSwitchApplicant">
+                                    <input class="custom-control-input" type="checkbox" id="applicant-remove-@user.Email" onchange="change_role()" data-id="@user.Email" data-role="Applicant" data-command="removed" checked>
+                                    <label class="custom-control-label" for="applicant-remove-@user.Email"></label>
+                                </div>
+                            }
+                            else
+                            {
+                                <div class="custom-control custom-switch roleSwitchApplicant">
+                                    <input class="custom-control-input" type="checkbox" id="applicant-add-@user.Email" onchange="change_role()" data-id="@user.Email" data-role="Applicant" data-command="added">
+                                    <label class="custom-control-label" for="applicant-add-@user.Email"></label>
+                                </div>
+                            }
+                        }
+                    </td>
+
+                </tr>
+            }
+
+        </tbody>
+    </table>
+
+    <script src="~/js/ajax.js"></script>
+    <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.11.3/css/jquery.dataTables.min.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="https://cdn.datatables.net/1.11.3/js/jquery.dataTables.min.js"></script>
+    <script>
+        $(function () {
+            $.noConflict();
+            $('#permissionTable').DataTable();
+        });</script>
+
+</div>
+
+
+

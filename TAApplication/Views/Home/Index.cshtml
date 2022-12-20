@@ -1,0 +1,48 @@
+﻿@{
+    ViewData["Title"] = "Home Page";
+}
+
+<!--
+  Author:    Mason Austin
+  Partner:   None
+  Date:      9/19/2021
+  Course:    CS 4540, University of Utah, School of Computing
+  Copyright: CS 4540 and Mason Austin - This work may not be copied for use in Academic Coursework.
+
+  I, Mason Austin, certify that I wrote this code from scratch and did not copy it in part or whole from
+  another source.  Any references used in the completion of the assignment are cited in my README file.
+
+  File Contents:
+    This is the landing page of the website and is meant to give a "stylish" welcome to users of the site.
+    It is currently trying to advertise the application job request form page.
+    This home page was started from the "jumbotron" template.
+
+    Only changes for new page was the "apply now" referral link
+-->
+
+<!-- Main jumbotron for a primary marketing message or call to action -->
+<div class="jumbotron" id="jumbotronHome">
+    <div class="container">
+        <h2 class="display-3" id="jumbotronHomeHeader">School of Computing - TA Applications</h2>
+        <p id="jumbotronStatement">Being a Teaching Assistant is a great option for students with great communication skills who have a desire to help other students by sharing you knowledge.   </p>
+        <p id="jumbotronButton"><a class="btn btn-primary btn-lg btn-red" href="~/Applications/Create" role="button">Apply Now »</a></p>
+    </div>
+</div>
+
+<div class="container" id="homeSupportStatements">
+    <!-- Example row of columns -->
+    <div class="row" id="supportStatementGrid">
+        <div class="col-md-4">
+            <h2>Network</h2>
+            <p>The School of Computing at the University of Utah is home to many great faculty members. Working as a Teacher Assistant is the perfect opportunity to build connections with them and expand your network. </p>
+        </div>
+        <div class="col-md-4">
+            <h2>Help Students</h2>
+            <p>Teacher Assistants typically will spend a lot of their helping other students and so it's necessary to have great communication skills as well as a desire to help other students. Being a Teacher Assistant typically consists of helping other students, holding office hours for students, grading classwork, ect. </p>
+        </div>
+        <div class="col-md-4">
+            <h2>Get Paid</h2>
+            <p>Get paid by sharing your knowledge with your fellow students. If you are a graduate/BS/MS student, you may also receive benefits such as a tuition waiver and/or health benefits. </p>
+        </div>
+    </div>
+</div>

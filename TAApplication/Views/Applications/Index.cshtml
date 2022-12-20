@@ -1,0 +1,180 @@
+﻿<!--
+  Author:    Mason Austin
+  Partner:   None
+  Date:      11/17/2021
+  Course:    CS 4540, University of Utah, School of Computing
+  Copyright: CS 4540 and Mason Austin - This work may not be copied for use in Academic Coursework.
+
+  I, Mason Austin, certify that I wrote this code from scratch and did not copy it in part or whole from
+  another source.  Any references used in the completion of the assignment are cited in my README file.
+
+  File Contents:
+    This page is a home page for the applications base which directs towards the entries and displays statistics.
+    Depending on the user role, it will display different relevant information.
+    Admins get student statistics and student list, Applicants get info related to their application, and Professors get redirected.
+    If the user an applicant, they will get a link to the availability page as well as a single stat about their total available time.
+-->
+
+
+@model IEnumerable<TAApplication.Models.Application>
+@using Microsoft.AspNetCore.Identity
+@using TAApplication.Areas.Identity.Data
+@inject UserManager<TAUser> UserManager
+@{
+    ViewData["Title"] = "Index";
+    var studentCount = Model.Count();
+    var avgGPA = Math.Round(Model.Average(s => s.GPA), 3);
+    var avgHours = Math.Round(Model.Average(s => s.Hours), 1);
+    var avgSemesters = Math.Round(Model.Average(s => s.Semesters), 1);
+    var commonDegree = Model.ToList().GroupBy(s => s.Degree).OrderBy(g => g.Count()).Last().Key;
+    var commonProgram = Model.ToList().GroupBy(s => s.Program).OrderBy(g => g.Count()).Last().Key;
+    var user = await UserManager.GetUserAsync(User);
+}
+
+
+<div class="container">
+    @if (User.IsInRole("Administrator"))
+    {
+        <div class="jumbotron" id="jumbotronApplication">
+            <h2 class="display-3" id="jumbotronApplicationHeader">Teacher Assistant Applications - Fall 2021</h2>
+            <a class="btn btn-lg btn-primary btn-red" href="~/Applications/List" role="button">View All Students »</a>
+        </div>
+
+        <h1 class="pageTitle" id="applicantStatisticHeader">Student Statistics</h1>
+
+        <div class="row" id="applicantStatistics">
+            <dl class="col-sm-6 col-md-4">
+                <dt>Total Students</dt>
+                <dd>
+                    @studentCount
+                </dd>
+            </dl>
+            <dl class="col-sm-6 col-md-4">
+                <dt>Most Common Degree</dt>
+                <dd>
+                    @commonDegree
+                </dd>
+            </dl>
+            <dl class="col-sm-6 col-md-4">
+                <dt>Most Common Program</dt>
+                <dd>
+                    @commonProgram
+                </dd>
+            </dl>
+            <dl class="col-sm-6 col-md-4">
+                <dt>Average GPA</dt>
+                <dd>
+                    @avgGPA
+                </dd>
+            </dl>
+            <dl class="col-sm-6 col-md-4">
+                <dt>Average Semesters</dt>
+                <dd>
+                    @avgSemesters
+                </dd>
+            </dl>
+            <dl class="col-sm-6 col-md-4">
+                <dt>Average Hours</dt>
+                <dd>
+                    @avgHours
+                </dd>
+
+            </dl>
+        </div>
+    }
+    else if (User.IsInRole("Professor"))
+    {
+        <main role="main" class="container">
+            <div class="starter-template">
+                <h1 class="navpaddingS">Application Home</h1>
+                <p class="lead navPaddingS">Professors are not applicants.<a href="~/Home/Index"> Are you lost? </a> </p>
+            </div>
+        </main>
+    }
+    else if (User.IsInRole("Applicant"))
+    {
+        var userApplicationFinder = Model.Where(s => s.Owner == User.Identity.Name);
+
+        //they have made an application
+        if (userApplicationFinder.Count() == 1)
+        {
+            <div class="jumbotron" id="jumbotronApplication">
+                <h3 class="display-3" id="jumbotronApplicationHeader">School of Computing Teacher Assistant Applications - Fall 2021</h3>
+                <p id="jumbotronStatement">Application Status: Submitted</p>
+                <p id="jumbotronButton"><a class="btn btn-lg btn-primary btn-red" href="~/Applications/Edit/@userApplicationFinder.First().ApplicationID" role="button">Edit My Application >></a></p>
+            </div>
+        }
+        //they have not made an application
+        else
+        {
+            <div class="jumbotron" id="jumbotronApplication">
+                <h3 class="display-3" id="jumbotronApplicationHeader">School of Computing Teacher Assistant Applications - Fall 2021</h3>
+                <p id="jumbotronStatement">Application Status: Not Submitted</p>
+                <p id="jumbotronButton"><a class="btn btn-lg btn-primary btn-red" href="~/Applications/Create" role="button">Create An Application >></a></p>
+            </div>
+        }
+
+        <h2 class="pageTitle" id="applicantStatisticHeader">My Availability</h2>
+
+        <div class="row">
+            <div class="col-md-6">
+                <p>
+                    When working as a TA for the University of Utah, you are expected to be available for about 20 hours per week for TA work.
+                    Availability is very important to us since if TAs don't have enough time to dedicate to their job, student may not be able to get the help they need from TAs.
+                </p>
+            </div>
+            <div class="col-md-6">
+                <h2>Current Availability: <a id="applicantHours"></a> hours</h2>
+                <br />
+                <a class="btn btn-primary btn-lg btn-red" id="availabilityButton" href="~/Availability" role="button">Set My Schedule >></a>
+            </div>
+        </div>
+
+        <br />
+
+        <h2 class="pageTitle" id="applicantStatisticHeader">FAQ</h2>
+
+        <div class="row" id="applicantStatistics">
+            <div class="col-md-4">
+                <h2>What's the benefit of being a TA?</h2>
+                <p> Work on campus by sharing your knowledge while getting paid. TAs usually have to hold TA hours to help students, grade work, help with labs, ect. </p>
+            </div>
+            <div class="col-md-4">
+                <h2>When can I still apply?</h2>
+                <p>Applications for the Fall are available from May to June. Applications for the Spring are available from October to December.</p>
+            </div>
+            <div class="col-md-4">
+                <h2>Who can TA?</h2>
+                <p>TAs can be any student currently pursuing an undergraduate and graduate degree. TAs should have taken the class they are assisting in and received a good grade. Everyone is encouraged to apply! </p>
+            </div>
+        </div>
+    }
+    else
+    {
+        <div class="jumbotron" id="jumbotronApplication">
+            <h2 class="display-3" id="jumbotronApplicationHeader">School of Computing Teacher Assistant Applications - Fall 2021</h2>
+            <a class="btn btn-lg btn-primary btn-red" href="~/Applications/Create" role="button">Apply Now!</a>
+        </div>
+
+        <h1 class="pageTitle" id="applicantStatisticHeader">FAQ</h1>
+
+        <div class="row" id="applicantStatistics">
+            <div class="col-md-4">
+                <h2>What's the benefit of being a TA?</h2>
+                <p> Work on campus by sharing your knowledge while getting paid. TAs usually have to hold TA hours to help students, grade work, help with labs, ect. </p>
+            </div>
+            <div class="col-md-4">
+                <h2>When can I still apply?</h2>
+                <p>Applications for the Fall are available from May to June. Applications for the Spring are available from October to December.</p>
+            </div>
+            <div class="col-md-4">
+                <h2>Who can TA?</h2>
+                <p>TAs can be any student currently pursuing an undergraduate and graduate degree. TAs should have taken the class they are assisting in and received a good grade. Everyone is encouraged to apply! </p>
+            </div>
+        </div>
+    }
+</div>
+
+<input type="hidden" id="PassingToJavaScript" value=@user.Id>
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+<script type="text/javascript" src="~/js/applicationHome.js"></script>

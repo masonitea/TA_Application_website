@@ -1,0 +1,79 @@
+﻿<!--
+  Author:    Mason Austin
+  Partner:   None
+  Date:      12/10/2021
+  Course:    CS 4540, University of Utah, School of Computing
+  Copyright: CS 4540 and Mason Austin - This work may not be copied for use in Academic Coursework.
+
+  I, Mason Austin, certify that I wrote this code from scratch and did not copy it in part or whole from
+  another source.  Any references used in the completion of the assignment are cited in my README file.
+
+  File Contents:
+    This page contains a Highchart that provides functionality for pulling enrollment data from the database and displaying it.
+-->
+
+@{
+    ViewData["Title"] = "EnrollmentTrends";
+    DateTime today = DateTime.Now;
+    string endDate;
+    if (today.Day < 10)
+    {
+        endDate = today.Year + "-" + today.Month + "-0" + today.Day;
+    }
+    else
+    {
+        endDate = today.Year + "-" + today.Month + "-" + today.Day;
+    }
+}
+
+<div class="row" id="enrollmentTrendsHeader">
+    <h1 class="pageTitle col-md-12">Enrollment Trends<img class="ULogo" src="~/images/Ulogo.png" /> </h1>
+</div>
+
+<div class="row" id="chartMenu">
+    <div class="col-3">
+        <p>Start Date:</p> <input type="date" id="startDate" name="date-start" value="2021-11-01" />
+    </div>
+    <div class="col-3">
+        <p>End Date:</p> <input type="date" id="endDate" name="date-start" value=@endDate />
+    </div>
+    <div class="col-md-2 col-sm-3">
+        <p>Course:</p> <select class="bootstrap-select" id="course">
+            <option value="CS 1400" selected="selected">CS 1400</option>
+            <option value="CS 1410">CS 1410</option>
+            <option value="CS 1420">CS 1420</option>
+            <option value="CS 2100">CS 2100</option>
+            <option value="CS 2420">CS 2420</option>
+            <option value="CS 3100">CS 3100</option>
+            <option value="CS 3200">CS 3200</option>
+            <option value="CS 3500">CS 3500</option>
+            <option value="CS 4150">CS 4150</option>
+            <option value="CS 4400">CS 4400</option>
+            <option value="CS 4480">CS 4480</option>
+            <option value="CS 4500">CS 4500</option>
+            <option value="CS 4530">CS 4530</option>
+        </select>
+    </div>
+    <div class="col-12 rowPadding" id="chartButtonDiv">
+        <button class="btn btn-primary" id="chartButton" onclick="add_series()">Get Data</button>
+    </div>
+</div>
+
+<img src="~/images/spinner.gif" class="jumbospinner" id="spinner" alt="loading..."
+     style="display:none" />
+
+<figure class="highcharts-figure">
+    <div id="chart"></div>
+</figure>
+
+@section Styles
+{
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highcharts/9.3.2/css/highcharts.min.css" integrity="sha512-/G4PBY3DrEXBrex90H73x+CRfmCvcSp57ifLtzrwVs4HmOVDccjIPSpGyJwKJmg6qfEDi0tHFaq2mLECK40WjQ==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+}
+
+@section Scripts
+{
+    <script src="https://code.highcharts.com/highcharts.js"></script>
+    <script type="text/javascript" src="~/js/chart.js"></script>
+}
+

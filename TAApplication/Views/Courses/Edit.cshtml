@@ -1,0 +1,125 @@
+﻿@model TAApplication.Models.Course
+
+@{
+    ViewData["Title"] = "Edit";
+}
+
+<div class="row" id="courseEditHeader">
+    <h1 class="pageTitle col-md-12">Edit @Model.Department @Model.Number - @Model.Name  <img class="ULogo" src="~/images/Ulogo.png" /> </h1>
+</div>
+
+<div class="row" id="courseEditBody">
+    <div class="col-md-12">
+        <form asp-action="Edit" id="courseEditForm">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <input type="hidden" asp-for="CourseID" />
+            <div class="row">
+                <div class="form-group col-sm-6">
+                    <label asp-for="SemesterOffered" class="control-label"></label>
+                    <select asp-for="SemesterOffered" class="form-control">
+                        <option>Spring</option>
+                        <option>Summer</option>
+                        <option>Fall</option>
+                    </select>
+                    <span asp-validation-for="SemesterOffered" class="text-danger"></span>
+                </div>
+                <div class="form-group col-sm-6">
+                    <label asp-for="YearOffered" class="control-label"></label>
+                    <input asp-for="YearOffered" class="form-control" />
+                    <span asp-validation-for="YearOffered" class="text-danger"></span>
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="form-group col-12">
+                    <label asp-for="Name" class="control-label"></label>
+                    <input asp-for="Name" class="form-control" />
+                    <span asp-validation-for="Name" class="text-danger"></span>
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="form-group col-4">
+                    <label asp-for="Department" class="control-label"></label>
+                    <input asp-for="Department" class="form-control" />
+                    <span asp-validation-for="Department" class="text-danger"></span>
+                </div>
+                <div class="form-group col-4">
+                    <label asp-for="Number" class="control-label"></label>
+                    <input asp-for="Number" class="form-control" />
+                    <span asp-validation-for="Number" class="text-danger"></span>
+                </div>
+                <div class="form-group col-4">
+                    <label asp-for="Section" class="control-label"></label>
+                    <input asp-for="Section" class="form-control" />
+                    <span asp-validation-for="Section" class="text-danger"></span>
+                </div>
+            </div>
+
+
+            <div class="form-group">
+                <label asp-for="Description" class="control-label"></label>
+                <textarea asp-for="Description" class="form-control" rows="4"></textarea>
+                <span asp-validation-for="Description" class="text-danger"></span>
+            </div>
+
+
+            <div class="row">
+                <div class="form-group col-sm-6">
+                    <label asp-for="ProfessorUnid" class="control-label"></label>
+                    <input asp-for="ProfessorUnid" class="form-control" />
+                    <span asp-validation-for="ProfessorUnid" class="text-danger"></span>
+                </div>
+                <div class="form-group col-sm-6">
+                    <label asp-for="ProfessorName" class="control-label"></label>
+                    <input asp-for="ProfessorName" class="form-control" />
+                    <span asp-validation-for="ProfessorName" class="text-danger"></span>
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="form-group col-sm-4">
+                    <label asp-for="OfferedDays" class="control-label"></label>
+                    <input asp-for="OfferedDays" class="form-control" />
+                    <span asp-validation-for="OfferedDays" class="text-danger"></span>
+                </div>
+                <div class="form-group col-sm-4">
+                    <label asp-for="OfferedTimes" class="control-label"></label>
+                    <input asp-for="OfferedTimes" class="form-control" />
+                    <span asp-validation-for="OfferedTimes" class="text-danger"></span>
+                </div>
+                <div class="form-group col-sm-4">
+                    <label asp-for="Location" class="control-label"></label>
+                    <input asp-for="Location" class="form-control" />
+                    <span asp-validation-for="Location" class="text-danger"></span>
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="form-group col-sm-6 col-md-4">
+                    <label asp-for="CreditHours" class="control-label"></label>
+                    <input asp-for="CreditHours" class="form-control" />
+                    <span asp-validation-for="CreditHours" class="text-danger"></span>
+                </div>
+                <div class="form-group col-sm-6 col-md-4">
+                    <label asp-for="Enrollment" class="control-label"></label>
+                    <input asp-for="Enrollment" class="form-control" />
+                    <span asp-validation-for="Enrollment" class="text-danger"></span>
+                </div>
+                <div class="form-group col-sm-12 col-md-4">
+                    <label asp-for="Note" class="control-label"></label>
+                    <input asp-for="Note" class="form-control" />
+                    <span asp-validation-for="Note" class="text-danger"></span>
+                </div>
+            </div>
+            <div class="form-group" id="courseEditLinks">
+                <input type="submit" value="Save" class="btn btn-primary btn-red" /> &nbsp &nbsp
+                <a class="btn btn-primary" id="CourseListButton" href="~/Courses/List" role="button">Back to List</a>
+            </div>
+        </form>
+    </div>
+</div>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}
